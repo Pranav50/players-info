@@ -12,7 +12,7 @@ const PlayerCard = ({allPlayersList}) => {
                 <>
                 <div key={Id} className="col-11 col-md-6 col-lg-3 mx-0 mb-4">
                 <div  className="card p-0 overflow-hidden h-100 shadow">
-                    <img src={`players-data/${Id}.JPG`} onError={(e) => ((
+                    <img src={`${process.env.PUBLIC_URL}/player-images/${Id}.jpg`} onError={(e) => ((
                         e.currentTarget.src = `${NoImage}`,
                         e.currentTarget.style = 'height: 170%; width: 100%'
                         ))} className="card-img-top img-fluid" />
