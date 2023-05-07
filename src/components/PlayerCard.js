@@ -3,10 +3,11 @@ import moment from "moment"
 import NoImage from '../assets/img/no-image.jpg'
 
 const PlayerCard = ({allPlayersList}) => {
+    console.log("ALL PLAYER LIST", allPlayersList)
     return (
         <>
           {
-            allPlayersList && allPlayersList?.sort((a,b) => (Number(a.Value) > Number(b.Value)) ? 1 : -1).map((data, id) => {
+            allPlayersList.length !== 0 ? allPlayersList?.sort((a,b) => (Number(a.Value) > Number(b.Value)) ? 1 : -1).map((data, id) => {
                 const {Id, PFName, SkillDesc,Value,UpComingMatchesList} = data;
                 return (
                 <>
@@ -24,7 +25,7 @@ const PlayerCard = ({allPlayersList}) => {
                 </div>
                 </div>
                 </>)
-            })
+            }) : <h2>No Data</h2>
           }  
         </>
     );
