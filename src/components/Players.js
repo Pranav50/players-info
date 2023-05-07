@@ -4,6 +4,7 @@ import axios from "axios"
 import PlayerCard from './PlayerCard';
 import Navbar from './Navbar';
 import Spinner from './Spinner';
+import useDebounce from '../customHooks/useDebounce';
 
 const Players = () => {
     
@@ -11,6 +12,8 @@ const Players = () => {
     const [searchValue, setSearchValue] = useState()
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState()
+
+    let newSearch = useDebounce(searchValue, 1000)
 
     const getPlayerData = async () => {
         try {
@@ -32,14 +35,14 @@ const Players = () => {
     }, [])
 
     const allPlayersList = useMemo(() => {
-        if(!searchValue) return playerData;
+        if(!newSearch) return playerData;
 
         return playerData && playerData?.filter(
             (data) => 
-            (data.PFName.toLowerCase() && data.PFName.toLowerCase()).search(searchValue.toLowerCase()) !== -1 ||
-            data.TName.toLowerCase() && data.TName.toLowerCase().search(searchValue.toLowerCase()) !== -1
+            (data.PFName.toLowerCase() && data.PFName.toLowerCase()).search(newSearch.toLowerCase()) !== -1 ||
+            data.TName.toLowerCase() && data.TName.toLowerCase().search(newSearch.toLowerCase()) !== -1
             )
-    }, [searchValue, playerData])
+    }, [newSearch, playerData])
 
     const handleSearchInput = (event) => {
         let value = event;
